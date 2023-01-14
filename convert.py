@@ -15,9 +15,9 @@ jd18usa = "/storage_mlc/usr/save/00050000/10211300/user/[userid]/JustDance2018/"
 address = input("Enter the Wii U's IP address. Do not include the port.\n -> ")
 
 # Declare other variables
-jdversion = "2018" #input("Enter the Just Dance version. Only include the year. Example: '2018'.\n -> ")
-jdregion = "EUR" #input("Enter the region of the game. Example: 'EUR'.\n -> ")
-userid = "8000000a" #input("Enter the user ID of whom you would like to extract the save. Example: '80000003'.\n -> ")
+jdversion = input("Enter the Just Dance version. Only include the year. Example: '2018'.\n -> ")
+jdregion = input("Enter the region of the game. Example: 'EUR'.\n -> ")
+userid = input("Enter the user ID of whom you would like to extract the save. Example: '80000003'.\n -> ")
 
 if jdversion == "2016" and jdregion == "EUR":
     gameurl = jd16eur.replace("[userid]", userid)
@@ -40,6 +40,11 @@ def file_check():
         os.mkdir("saves")
     if "output" not in os.listdir():
         os.mkdir("output")
+    
+    if ".gitkeep" in os.listdir('./output'):
+        os.remove("./output/.gitkeep")
+    if ".gitkeep" in os.listdir('./temp'):
+        os.remove("./temp/.gitkeep")
 
 def transfer_saves():
 
@@ -80,9 +85,21 @@ def extract_saves():
         #     print(f"Error with '{file}', skipping...")
         #     continue
 
-        with open(f"./saves/{file}.webm", "xb") as o:
+        name_nullbyte = buffer.find(0, 188)
+        artist_nullbyte = buffer.find(0, 316)
+
+        name = buffer[188:name_nullbyte]
+        artist = buffer[316:artist_nullbyte]
+
+        name = name.decode('utf-8')
+        artist = artist.decode('utf-8')
+
+        filename = f"{str(name)} - {str(artist)}"
+
+        with open(f"./saves/{filename}.webm", "xb") as o:
             print(f" -> Extracting '{file}'...")
             o.write(buffer[512460:])
+            
 
     print("\nAll videos have been extracted.")
 
@@ -98,7 +115,7 @@ def convert_videos():
         quit("\nThere are no files in the 'saves' folder. No videos were converted.")
 
     for file in os.listdir('saves'):
-        print(f"\n -> Converting '{file}'...")
+        print(f" -> Converting '{file}'...")
         filename = "./output/" + file[:-5]
 
         ffmpeg.input("./saves/" + file).output(f'{filename}.mp4').global_args('-loglevel', 'quiet').run()
@@ -113,5 +130,5 @@ def convert_videos():
 if __name__ == '__main__':
     file_check()
     transfer_saves()
-    #extract_saves()
-    #convert_videos()
+    extract_saves()
+    convert_videos()
