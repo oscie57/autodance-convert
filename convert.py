@@ -36,8 +36,8 @@ else:
 
 def file_check():
 
-    if "temp" not in os.listdir():
-        os.mkdir("temp")
+    if "saves" not in os.listdir():
+        os.mkdir("saves")
     if "output" not in os.listdir():
         os.mkdir("output")
 
@@ -53,7 +53,7 @@ def transfer_saves():
 
         for savefile in names:
             print(f" -> Downloading '{savefile}'...")
-            ftp_host.download(f"{gameurl}/{savefile}", f"./temp/{savefile}")
+            ftp_host.download(f"{gameurl}/{savefile}", f"./saves/{savefile}")
 
         print("\nAll save files have been downloaded.")
     
@@ -61,57 +61,57 @@ def transfer_saves():
 
 def extract_saves():
 
-    if len(os.listdir('./temp')) == 0:
-        quit("\nThere are no files in the 'temp' folder. No videos were extracted.")
+    if len(os.listdir('./saves')) == 0:
+        quit("\nThere are no files in the 'saves' folder. No videos were extracted.")
     
-    for file in os.listdir('./temp'):
+    for file in os.listdir('./saves'):
         if file == "JDSave_0" or file == ".gitkeep":
-            os.remove(f'./temp/{file}')
+            os.remove(f'./saves/{file}')
 
-    print("\nCleaned 'temp' folder. Ready to extract.")
+    print("\nCleaned 'saves' folder. Ready to extract.")
 
-    for file in os.listdir('./temp'):
+    for file in os.listdir('./saves'):
         print("")
         
-        with open(f"./temp/{file}", "rb") as f:
+        with open(f"./saves/{file}", "rb") as f:
             buffer = f.read()
 
         # if buffer[512460] != 0 or buffer[512461] != 0x1A:
         #     print(f"Error with '{file}', skipping...")
         #     continue
 
-        with open(f"./temp/{file}.webm", "xb") as o:
+        with open(f"./saves/{file}.webm", "xb") as o:
             print(f" -> Extracting '{file}'...")
             o.write(buffer[512460:])
 
     print("\nAll videos have been extracted.")
 
-    for file in os.listdir('./temp'):
+    for file in os.listdir('./saves'):
         if ".webm" not in file:
-            os.remove(f'./temp/{file}')
+            os.remove(f'./saves/{file}')
 
-    print("Cleaned 'temp' folder. Ready to convert.")
+    print("Cleaned 'saves' folder. Ready to convert.")
 
 def convert_videos():
 
-    if len(os.listdir('./temp')) == 0:
-        quit("\nThere are no files in the 'temp' folder. No videos were converted.")
+    if len(os.listdir('./saves')) == 0:
+        quit("\nThere are no files in the 'saves' folder. No videos were converted.")
 
-    for file in os.listdir('temp'):
+    for file in os.listdir('saves'):
         print(f"\n -> Converting '{file}'...")
         filename = "./output/" + file[:-5]
 
-        ffmpeg.input("./temp/" + file).output(f'{filename}.mp4').global_args('-loglevel', 'quiet').run()
+        ffmpeg.input("./saves/" + file).output(f'{filename}.mp4').global_args('-loglevel', 'quiet').run()
 
     print("\nAll videos have been converted. Please check the 'output' folder.")
 
-    for file in os.listdir('./temp'):
-        os.remove(f'./temp/{file}')
+    for file in os.listdir('./saves'):
+        os.remove(f'./saves/{file}')
 
-    print("Cleaned 'temp' folder.")
+    print("Cleaned 'saves' folder.")
 
 if __name__ == '__main__':
     file_check()
     transfer_saves()
-    extract_saves()
-    convert_videos()
+    #extract_saves()
+    #convert_videos()
