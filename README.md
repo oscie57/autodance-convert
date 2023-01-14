@@ -1,6 +1,6 @@
 # autodance-convert
 
- A python project to convert Just Dance Wii U Autodances to MP4
+ A python project to convert Just Dance Wii U Autodances to MP4.
 
  Special thanks to [this GBAtemp post](https://gbatemp.net/threads/extract-just-dance-autodance-video.493341/) for information on how to do this.
 
