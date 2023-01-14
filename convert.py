@@ -52,7 +52,7 @@ def transfer_saves():
         print(f"\nThere are {len(names) - 1} autodances. They may take a while to download, so please be patient.\n")
 
         for savefile in names:
-            print(f" -> Downloading {savefile}...")
+            print(f" -> Downloading '{savefile}'...")
             ftp_host.download(f"{gameurl}/{savefile}", f"./temp/{savefile}")
 
         print("\nAll save files have been downloaded.")
@@ -81,7 +81,7 @@ def extract_saves():
         #     continue
 
         with open(f"./temp/{file}.webm", "xb") as o:
-            print(f" -> Extracting {file}...")
+            print(f" -> Extracting '{file}'...")
             o.write(buffer[512460:])
 
     print("\nAll videos have been extracted.")
