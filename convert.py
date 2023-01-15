@@ -4,12 +4,12 @@ import ftputil
 import ffmpeg
 
 # Declare URLs
-jd16eur = "/storage_mlc/usr/save/00050000/101b9800/user/[userid]/JustDance2016/"
-jd16usa = "/storage_mlc/usr/save/00050000/101b9000/user/[userid]/JustDance2016/"
-jd17eur = "/storage_mlc/usr/save/00050000/101eaa00/user/[userid]/JustDance2017/"
-jd17usa = "/storage_mlc/usr/save/00050000/101eb200/user/[userid]/JustDance2017/"
-jd18eur = "/storage_mlc/usr/save/00050000/10210c00/user/[userid]/JustDance2018/"
-jd18usa = "/storage_mlc/usr/save/00050000/10211300/user/[userid]/JustDance2018/"
+jd16eur = "/storage_[type]/usr/save/00050000/101b9800/user/[userid]/JustDance2016/"
+jd16usa = "/storage_[type]/usr/save/00050000/101b9000/user/[userid]/JustDance2016/"
+jd17eur = "/storage_[type]/usr/save/00050000/101eaa00/user/[userid]/JustDance2017/"
+jd17usa = "/storage_[type]/usr/save/00050000/101eb200/user/[userid]/JustDance2017/"
+jd18eur = "/storage_[type]/usr/save/00050000/10210c00/user/[userid]/JustDance2018/"
+jd18usa = "/storage_[type]/usr/save/00050000/10211300/user/[userid]/JustDance2018/"
 
 # Declare FTP variables
 address = input("Enter the Wii U's IP address. Do not include the port.\n -> ")
@@ -18,6 +18,7 @@ address = input("Enter the Wii U's IP address. Do not include the port.\n -> ")
 jdversion = input("Enter the Just Dance version. Only include the year. Example: '2018'.\n -> ")
 jdregion = input("Enter the region of the game. Example: 'EUR'.\n -> ")
 userid = input("Enter the user ID of whom you would like to extract the save. Example: '80000003'.\n -> ")
+gamearea = input("Enter the location of the game. Example: 'NAND'.\n -> ")
 
 if jdversion == "2016" and jdregion == "EUR":
     gameurl = jd16eur.replace("[userid]", userid)
@@ -33,6 +34,13 @@ elif jdversion == "2018" and jdregion == "USA":
     gameurl = jd18usa.replace("[userid]", userid)
 else:
     quit("\nIncorrect value. Are you sure you put in the correct items?")
+
+if gamearea == "NAND":
+    gameurl = gameurl.replace("[type]", "mlc")
+elif gamearea == "USB":
+    gameurl = gameurl.replace("[type]", "usb")
+else:
+    quit("\nIncorrect value. Are you sure you put in the correct storage type?") 
 
 def file_check():
 
