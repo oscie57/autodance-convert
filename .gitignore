@@ -2,3 +2,5 @@
 *.webm
 
 JDSave_*
+
+debug/
