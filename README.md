@@ -12,7 +12,7 @@
 
 In order to use this, you will need a Wii U with custom firmware installed, I recommend using [this guide](https://wiiu.hacks.guide/) and installing Tiramisu/Aroma, either should work for this.
 
-You will also need [FTPiiu_everywhere](https://gbatemp.net/threads/libiosuhax-ppc-ipc-library-for-communication-to-dev-iosuhax.449296/) running.
+You will also need [FTPiiu_everywhere](https://wiidatabase.de/wii-u-downloads/wii-u-tools/ftpiiu-everywhere/) running.
 
 Make sure you have Python installed, I use 3.9, not sure if anything before that works.
 
