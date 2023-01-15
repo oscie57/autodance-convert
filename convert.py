@@ -43,8 +43,8 @@ def file_check():
     
     if ".gitkeep" in os.listdir('./output'):
         os.remove("./output/.gitkeep")
-    if ".gitkeep" in os.listdir('./temp'):
-        os.remove("./temp/.gitkeep")
+    if ".gitkeep" in os.listdir('./saves'):
+        os.remove("./saves/.gitkeep")
 
 def transfer_saves():
 
@@ -73,10 +73,9 @@ def extract_saves():
         if file == "JDSave_0" or file == ".gitkeep":
             os.remove(f'./saves/{file}')
 
-    print("\nCleaned 'saves' folder. Ready to extract.")
+    print("\nCleaned 'saves' folder. Ready to extract.\n")
 
     for file in os.listdir('./saves'):
-        print("")
         
         with open(f"./saves/{file}", "rb") as f:
             buffer = f.read()
@@ -107,7 +106,7 @@ def extract_saves():
         if ".webm" not in file:
             os.remove(f'./saves/{file}')
 
-    print("Cleaned 'saves' folder. Ready to convert.")
+    print("Cleaned 'saves' folder. Ready to convert.\n")
 
 def convert_videos():
 
