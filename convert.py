@@ -93,7 +93,7 @@ def extract_saves():
         name = name.decode('utf-8')
         artist = artist.decode('utf-8')
 
-        filename = f"{str(name)} - {str(artist)}"
+        filename = f"[{jdversion}] {str(name)} - {str(artist)}"
 
         with open(f"./saves/{filename}.webm", "xb") as o:
             print(f" -> Extracting '{file}'...")
