@@ -1,0 +1,2 @@
+click==8.1.7
+ffmpeg_python==0.2.0

@@ -1,6 +1,5 @@
+output/
+JDSave_*
 *.mp4
 *.webm
-
-JDSave_*
-
-debug/
+config.json

@@ -1,0 +1,16 @@
+[tool.ruff]
+line-length = 79
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "F",   # Pyflakes
+    "E",   # pycodestyle Error
+    "W",   # pycodestyle Warning
+    "I",   # isort
+    "N",   # pep8-naming
+    "Q",   # flake8-quotes
+    "TCH", # flake8-type-checking
+    "PTH", # flake8-use-pathlib
+]
+fixable = ["ALL"]
