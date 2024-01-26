@@ -66,7 +66,7 @@ def download_videos(address: str, game_path: str) -> None:
                 if file == SAVE_DATA:
                     click.echo("Save data skipped.")
                     continue
-                with (output_dir / file).open(mode="wb") as f:
+                with output_dir.joinpath(file).open(mode="wb") as f:
                     click.echo(f"Downloading {file}...")
                     ftp.retrbinary(f"RETR {file}", f.write)
     except ftplib.error_perm:
