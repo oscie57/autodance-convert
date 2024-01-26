@@ -22,11 +22,14 @@ Run `python -r requirements.txt` to install the required packages.
 
 In order to extract your autodances, there are a few things you'll need:
 
-- IP address of the Wii U to connect to
+- IP address of the Wii U to connect to [e.g. `192.168.0.125`]
 - ID of the user to get the videos from [e.g. `8000000a`]
-- version of the game to extract from [`2016`, `2017`, `2018`]
-- region of the game [`EUR`, `USA`]
-- location of the game [`NAND`, `USB`]
+- version of the game to extract from
+    - valid options: `2016`, `2017`, `2018`
+- region of the game 
+    - valid options: `EUR`, `USA`
+- location of the game
+    - valid options: `NAND`, `USB`
 
 Once you meet all the requirements, you can run the following command and follow the on-screen prompts:
 
