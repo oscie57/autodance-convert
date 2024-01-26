@@ -96,10 +96,17 @@ def extract_videos() -> None:
         click.echo(f"{video.name}: {name} - {artist}")
         filename = f"{name} - {artist}.webm"
 
-        with (output_dir / filename).open(mode="xb") as f:
+        output = output_dir.joinpath(filename)
+        if output.is_file():
+            output.unlink()
+        with output.open(mode="xb") as f:
             f.write(data[512460:])
 
-    videos = files_in_directory(output_dir)
+    videos = [
+        video
+        for video in files_in_directory(output_dir)
+        if video.name.startswith("JDSave") and video.suffix == ""
+    ]
 
     if len(videos) == 0:
         click.echo("No videos were found to extract. Exiting...")
@@ -118,9 +125,7 @@ def convert_videos() -> None:
 
         output = video.with_suffix(".mp4")
         if output.exists():
-            if click.prompt("Video already exists, overwrite it?"):
-                pass
-            return
+            output.unlink()
 
         stream = ffmpeg.input(str(video))
         stream = ffmpeg.output(stream, str(output))
@@ -130,7 +135,11 @@ def convert_videos() -> None:
         except ffmpeg.Error as e:
             click.echo(f"Error converting video: {e.stderr}")
 
-    videos = files_in_directory(output_dir)
+    videos = [
+        video
+        for video in files_in_directory(output_dir)
+        if video.suffix == ".webm"
+    ]
 
     if len(videos) == 0:
         click.echo("No videos were found to convert. Exiting...")
